@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/Users/trey/.virtualenvs/url/bin/python
 
 import os
 import urllib.request, urllib.error, urllib.parse
