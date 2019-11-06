@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 import os
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import argparse
-from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup
 
 def is_valid_url(url):
     # This is how Django checks for a valid URL.
@@ -32,9 +32,9 @@ args = parser.parse_args()
 
 if is_valid_url(args.url):
     try:
-        urllib2.urlopen(args.url)
+        urllib.request.urlopen(args.url)
 
-        soup = BeautifulSoup(urllib2.urlopen(args.url).read())
+        soup = BeautifulSoup(urllib.request.urlopen(args.url).read(), 'html.parser')
 
         if args.html:
             output = '<a href="%s">%s</a>' % (args.url, soup.title.string)
@@ -44,17 +44,17 @@ if is_valid_url(args.url):
             output = soup.title.string
 
         if args.alfred:
-            print output.rstrip()
+            print(output.rstrip())
         else:
             command = 'echo "' \
-                + output.encode('utf-8') \
+                + output.rstrip() \
                 + '" | tr -d "\n" | pbcopy'
             os.system(command)
-            print "\n" + output + "\n\nCopied to the clipboard!\n"
+            print("\n" + output + "\n\nCopied to the clipboard!\n")
 
-    except urllib2.HTTPError, e:
-        print '1. Whoops: %s' % e.code
-    except urllib2.URLError, e:
-        print '2. Whoops: %s' % e.args
+    except urllib.error.HTTPError as e:
+        print('1. Whoops: %s' % e.code)
+    except urllib.error.URLError as e:
+        print('2. Whoops: %s' % e.args)
 else:
-    print 'Please enter a valid URL.'
+    print('Please enter a valid URL.')
