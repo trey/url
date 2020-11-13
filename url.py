@@ -1,4 +1,4 @@
-#!/Users/trey/.virtualenvs/url/bin/python
+#!/Users/trey/Code/url/.venv/bin/python
 
 import os
 import urllib.request, urllib.error, urllib.parse

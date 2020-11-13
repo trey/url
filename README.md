@@ -10,11 +10,14 @@ Similar to [Make a pretty Markdown link!](https://copy-url-title.glitch.me), but
 
 ## Setup
 
-1. `mkvirtualenv url`
-2. `pip install -r requirements.txt`
-3. `chmod +x url`
-4. Add a symbolic link to the `url` file somewhere on your path.
-5. Adjust the [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) as needed.
+1. `python3 -m venv .venv`
+1. `source .venv/bin/activate`
+1. `pip install -r requirements.txt`
+1. `deactivate`
+1. `chmod +x url.py` (probably redundant)
+1. Add a symbolic link somewhere on your path.
+    - `ln -s ~/Code/url/url.py ~/bin/url`
+1. Adjust the [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) as needed.
 
 ## Usage
 
