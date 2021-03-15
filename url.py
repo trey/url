@@ -26,8 +26,8 @@ parser.add_argument('-t', '--html',\
     help='Return an HTML link.', action='store_true')
 parser.add_argument('-m', '--md',\
     help='Return a Markdown link.', action='store_true')
-parser.add_argument('-a', '--alfred',\
-    help='Print output instead of copying to clipboard.', action='store_true')
+parser.add_argument('-g', '--git',\
+    help='Format output for Git commit messages.', action='store_true')
 args = parser.parse_args()
 
 if is_valid_url(args.url):
@@ -37,24 +37,30 @@ if is_valid_url(args.url):
         soup = BeautifulSoup(urllib.request.urlopen(args.url).read(), 'html.parser')
 
         if args.html:
-            output = '<a href="%s">%s</a>' % (args.url, soup.title.string)
+            output = f'<a href="{args.url}">{soup.title.string}</a>'
         elif args.md:
-            output = '[%s](%s)' % (soup.title.string, args.url)
+            output = f'[{soup.title.string}]({args.url})'
+        elif args.git:
+            output = f'{soup.title.string}:\n{args.url}'
         else:
             output = soup.title.string
 
-        if args.alfred:
-            print(output.rstrip())
+        if args.git:
+            # Don’t strip newlines.
+            command = 'echo "' \
+                + output.rstrip() \
+                + '" | pbcopy'
         else:
             command = 'echo "' \
                 + output.rstrip() \
                 + '" | tr -d "\n" | pbcopy'
-            os.system(command)
-            print("\n" + output + "\n\nCopied to the clipboard!\n")
+
+        os.system(command)
+        print("\n" + output + "\n\nCopied to the clipboard!\n")
 
     except urllib.error.HTTPError as e:
-        print('1. Whoops: %s' % e.code)
+        print(f'1. Whoops: {e.code}')
     except urllib.error.URLError as e:
-        print('2. Whoops: %s' % e.args)
+        print(f'2. Whoops: {e.args}')
 else:
     print('Please enter a valid URL.')

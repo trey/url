@@ -4,9 +4,10 @@ Do things with the title of a URL.
 
 Similar to [Make a pretty Markdown link!](https://copy-url-title.glitch.me), but a _lot_ faster.
 
-1. Make a Markdown link.
-2. Make an HTML link.
-3. Just get the title by itself.
+1. Just get the title by itself.
+2. Make a Markdown link.
+3. Make an HTML link.
+4. Get the title and URL formatted for a Git commit message.
 
 ## Setup
 
@@ -37,4 +38,10 @@ To get an HTML link:
 
 ```shell
 $ url -t http://example.com
+```
+
+To get the title and URL formatted for a Git commit message:
+
+```shell
+$ url -g http://example.com
 ```
