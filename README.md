@@ -25,23 +25,48 @@ Similar to [Make a pretty Markdown link!](https://copy-url-title.glitch.me), but
 To get the title of the URL by itself:
 
 ```shell
-$ url http://example.com
+$ url https://example.com
+```
+
+Output:
+
+```
+Example Domain
 ```
 
 To get a Markdown link:
 
 ```shell
-$ url -m http://example.com
+$ url -m https://example.com
+```
+
+Output:
+
+```
+[Example Domain](https://example.com)
 ```
 
 To get an HTML link:
 
 ```shell
-$ url -t http://example.com
+$ url -t https://example.com
+```
+
+Output:
+
+```
+<a href="https://example.com">Example Domain</a>
 ```
 
 To get the title and URL formatted for a Git commit message:
 
 ```shell
-$ url -g http://example.com
+$ url -g https://example.com
+```
+
+Output:
+
+```
+Example Domain:
+https://example.com
 ```
